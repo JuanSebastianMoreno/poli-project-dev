@@ -1,0 +1,7 @@
+39;quantity of products sold:18
+678;quantity of products sold:16
+753;quantity of products sold:12
+122;quantity of products sold:14
+967;quantity of products sold:12
+508;quantity of products sold:16
+676;quantity of products sold:15
