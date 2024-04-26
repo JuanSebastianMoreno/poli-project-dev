@@ -9,18 +9,27 @@ public class GenerateInfoFiles {
 
     public static void main(String[] args) throws IOException {
 
-        // Define variables for the amount of data
-        int salespersonsNumber = generateRandomInt(5, 10); // Random number between 5 and 10
-        int productsNumber = generateRandomInt(5, 10); // Random number between 5 and 10
+        try {
+            // Define variables for the amount of data
+            int salespersonsNumber = generateRandomInt(5, 10); // Random number between 5 and 10
+            int productsNumber = generateRandomInt(5, 10); // Random number between 5 and 10
 
-        // Generate salespersons file
-        generateSalespersons(salespersonsNumber);
+            // Generate salespersons file
+            generateSalespersons(salespersonsNumber);
 
-        // Generate products file
-        generateProducts(productsNumber);
+            // Generate products file
+            generateProducts(productsNumber);
 
-        // Generate individual files per salesperson
-        generateSalespersonsFiles();
+            // Generate individual files per salesperson
+            generateSalespersonsFiles();
+            
+            // Display a success message
+            System.out.println("Files generated successfully.");
+        } catch (IOException e) {
+            // Display an error message
+            System.err.println("Error generating files: " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for more details about the error
+        }
     }
 
     private static void generateSalespersons(int salespersonsNumber) throws IOException {

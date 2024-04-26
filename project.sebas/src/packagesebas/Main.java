@@ -6,14 +6,69 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 
 public class Main {
+	
+	
 
     public static void main(String[] args) throws IOException {
         // Generate both reports
         generateSalespersonsReport();
         generateProductQuantityReport();
+        
+        try {
+            // Generate both reports
+            generateSalespersonsReport();
+            generateProductQuantityReport();
+            
+            // Display a successful completion message
+            System.out.println("Process completed successfully.");
+        } catch (IOException e) {
+            // In case of an input/output error, display an error message
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for more details about the error
+        }
+
     }
+
+
+    
+    private static void validateSalespersonFiles() throws IOException {
+        File folder = new File("C:\\Users\\Cbastian\\eclipse-workspace\\project.sebas");
+        File[] files = folder.listFiles();
+        for (File file : files) {
+            if (file.isFile() && file.getName().endsWith(".txt") && file.getName().startsWith("CC")) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        // Split the line by ";" to get the fields
+                        String[] fields = line.split(";");
+                        // Check if the fields are valid
+                        if (fields.length != 2) {
+                            throw new IOException("Invalid file format in: " + file.getName());
+                        }
+                        int productId = Integer.parseInt(fields[0]);
+                        int quantity = Integer.parseInt(fields[1].replace("quantity of products sold:", ""));
+                        // Check if productId exists and quantity is non-negative
+                        if (productId < 0 || quantity < 0 || !productIdExists(productId)) {
+                            throw new IOException("Invalid data in: " + file.getName());
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private static boolean productIdExists(int productId) {
+        // Implement logic to check if productId exists
+        // Return true if productId exists, false otherwise
+        return true; // Placeholder implementation
+    }
+    
+    
 
     private static void generateSalespersonsReport() throws IOException {
         Map<String, Double> salesBySalesperson = calculateSalesBySalesperson();
